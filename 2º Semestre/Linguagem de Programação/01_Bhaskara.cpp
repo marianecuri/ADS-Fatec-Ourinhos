@@ -1,6 +1,6 @@
-/* A entrada são três números reais, A, B e C. Imprima
-os valores das duas raízes (2 casas decimais), quando
-existirem. Quando não existirem imprima NARN. */
+/* A entrada sÃ£o trÃªs nÃºmeros reais, A, B e C. Imprima
+os valores das duas raÃ­zes (2 casas decimais), quando
+existirem. Quando nÃ£o existirem imprima NARN. */
 
 #include <iostream>
 #include <iomanip>

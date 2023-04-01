@@ -1,4 +1,4 @@
-/* Seu programa deve produzir um único inteiro, o número mínimo
+/* Seu programa deve produzir um Ãºnico inteiro, o nÃºmero mÃ­nimo
 de vezes que o processo de embaralhamento deve ser repetido para
 que o baralho fique novamente ordenado. */
 

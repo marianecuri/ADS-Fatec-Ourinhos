@@ -1,4 +1,4 @@
-// Descobrir o n-ésimo termo da série Fibonacci.
+// Descobrir o n-Ã©simo termo da sÃ©rie Fibonacci.
 
 #include <iostream>
 using namespace std;

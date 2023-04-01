@@ -2,9 +2,9 @@
 	C = 2
 	A = 1
 	D = 0
-Seu programa deve imprimir um número inteiro representando
-quantas unidades de painel são necessárias para cobrir toda a
-extensão da auto estrada. */
+Seu programa deve imprimir um nÃºmero inteiro representando
+quantas unidades de painel sÄƒo necessÃ¡rias para cobrir toda a
+extensÄƒo da auto estrada. */
 
 #include <iostream>
 #include <cstring>

@@ -1,5 +1,5 @@
-/* Implementar um programa que dado um número inteiro, seu
-programa deve responder se o mesmo é ou não primo. */
+/* Implementar um programa que dado um nÃºmero inteiro, seu
+programa deve responder se o mesmo Ã© ou nÃ£o primo. */
 
 #include <iostream>
 using namespace std;

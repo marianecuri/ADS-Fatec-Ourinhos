@@ -1,5 +1,5 @@
-/* Dado um numero qualquer n, seu programa dever·
-retornar Hn com precis„o de 8 casa decimais. */
+/* Dado um numero qualquer n, seu programa dever√°
+retornar Hn com precis√£o de 8 casa decimais. */
 
 #include <iostream>
 #include <iomanip>

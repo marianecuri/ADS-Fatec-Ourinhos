@@ -1,6 +1,6 @@
-/* A entrada é um dado grau G e o valor X a ser avaliado,
-na sequência são informados G elementos do polinomio. O
-resultado deve ser double com precisão de 2 casas decimais. */
+/* A entrada Ã© um dado grau G e o valor X a ser avaliado,
+na sequÃªncia sÃ£o informados G elementos do polinomio. O
+resultado deve ser double com precisÃ£o de 2 casas decimais. */
 
 #include <iostream>
 #include <iomanip>

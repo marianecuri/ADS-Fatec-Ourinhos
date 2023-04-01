@@ -1,6 +1,6 @@
-/* A entrada é um dado grau G, na sequência são informados
-G elementos do polinômio. Teremos G+1 linhas subsequentes.
-O resultado deve ser a derivada primeira do polinômio informado. */
+/* A entrada Ã© um dado grau G, na sequÃªncia sÃ£o informados
+G elementos do polinÃ´mio. Teremos G+1 linhas subsequentes.
+O resultado deve ser a derivada primeira do polinÃ´mio informado. */
 
 #include <iostream>
 #include <iomanip>

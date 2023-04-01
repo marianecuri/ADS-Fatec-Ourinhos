@@ -1,5 +1,5 @@
-/* Implementar um programa que dados dois vÈrtices e um ponto
-qualquer, responda se o ponto È interno ou externo ao ret‚ngulo. */
+/* Implementar um programa que dados dois v√©rtices e um ponto
+qualquer, responda se o ponto √© interno ou externo ao ret√¢ngulo. */
 
 #include <iostream>
 using namespace std;

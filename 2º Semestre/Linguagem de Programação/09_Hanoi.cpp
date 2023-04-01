@@ -1,5 +1,5 @@
-/* A entrada é o número de discos posicionados inicialmente no pino A e como 
-resposta seu programa deve imprimir todos os movimentos que solucionarão o
+/* A entrada Ã© o nÃºmero de discos posicionados inicialmente no pino A e como 
+resposta seu programa deve imprimir todos os movimentos que solucionarÃ£o o
 problema. Mover todos os discos do pino A para o pino B usando C como auxiliar. */
 
 #include <iostream>

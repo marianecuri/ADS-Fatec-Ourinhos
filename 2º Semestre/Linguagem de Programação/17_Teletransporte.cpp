@@ -1,6 +1,6 @@
-/* Seu programa deve produzir uma única linha, contendo um único inteiro,
-que deve ser igual a r módulo 10^4, onde r é o número de sequências distintas
-de L botões que levam o usuário da nave S para a nave T. */
+/* Seu programa deve produzir uma Ãºnica linha, contendo um Ãºnico inteiro,
+que deve ser igual a r mÃ³dulo 10^4, onde r Ã© o nÃºmero de sequÃªncias distintas
+de L botÃµes que levam o usuÃ¡rio da nave S para a nave T. */
 
 #include <iostream>
 using namespace std;

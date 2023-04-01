@@ -1,5 +1,5 @@
-/* Seu programa deve imprimir uma única linha, contendo a
-quantidade de sequências que se repetem dentro do segmento. */
+/* Seu programa deve imprimir uma Ãºnica linha, contendo a
+quantidade de sequÃªncias que se repetem dentro do segmento. */
 
 #include <iostream>
 #include <cstring>

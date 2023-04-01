@@ -1,5 +1,5 @@
 /* Elaborar um programa que dadas as leituras do sensor
-fototÈrmico, informe se È possÌvel realizar a jogada ou n„o*/
+fotot√©rmico, informe se √© poss√≠vel realizar a jogada ou n√£o*/
 
 #include <iostream>
 using namespace std;

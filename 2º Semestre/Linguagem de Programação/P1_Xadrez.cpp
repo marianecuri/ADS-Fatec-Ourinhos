@@ -1,6 +1,6 @@
-/* Um tabuleiro de xadrez é composto por 64 casas espalhadas regularmente num layout
+/* Um tabuleiro de xadrez Ã© composto por 64 casas espalhadas regularmente num layout
 de 8x8 e com as casas em cores alternadas. Criar um programa que gere um arquivo PGM:
-A única exigência é quanto ao número de pixels que cada casa do tabuleiro deve ter em altura e largura. */
+A Ãºnica exigÃªncia Ã© quanto ao nÃºmero de pixels que cada casa do tabuleiro deve ter em altura e largura. */
 
 #include <iostream>
 using namespace std;
