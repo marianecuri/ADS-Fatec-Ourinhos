@@ -59,7 +59,7 @@ void fexp (){
             cp (aux, resp);
         }
         
-        mult(adj, adj, aux);
+        mult (adj, adj, aux);
         cp (aux, adj);
     }
     
