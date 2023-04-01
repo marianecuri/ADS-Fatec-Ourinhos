@@ -1,5 +1,4 @@
-﻿#Um script que solicita ao usuário duas palavras
-#e verifica se elas são iguais ou diferentes.
+﻿#Um script que solicita ao usuário duas palavras e verifica se elas são iguais ou diferentes.
 
 Clear-Host
 
@@ -7,8 +6,8 @@ Clear-Host
 $wshell = New-Object -com Wscript.Shell
 
 #Recebe as palavras do usuário
-$palavra1 = Read-Host "Digite uma palavra"
-$palavra2 = Read-Host "Digite outra palavra"
+[string]$palavra1 = Read-Host "Digite uma palavra"
+[string]$palavra2 = Read-Host "Digite outra palavra"
 
 #Executa o bloco de notas
 $wshell.run("Notepad")

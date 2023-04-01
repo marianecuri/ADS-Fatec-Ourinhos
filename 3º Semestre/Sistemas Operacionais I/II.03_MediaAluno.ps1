@@ -1,5 +1,7 @@
-﻿#Um script que calcula a média aritmética de três notas de um
-#aluno e retorna se o aluno foi aprovado, reprovado ou recuperação.
+﻿<#
+Um script que calcula a média aritmética de três notas de um aluno
+e retorna se o aluno foi aprovado, reprovado ou está de recuperação.
+#>
 
 Clear-Host
 

@@ -1,5 +1,7 @@
-﻿#Um script que solicita ao usuário 2 números e retorna se o
-#primeiro número é maior, menor ou igual ao segundo número.
+﻿<#
+Um script que solicita ao usuário 2 números e retorna se o
+primeiro número é maior, menor ou igual ao segundo número.
+#>
 
 Clear-Host
 

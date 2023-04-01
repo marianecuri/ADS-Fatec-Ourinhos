@@ -1,5 +1,4 @@
-﻿#Um script que solicita ao usuário um número e verifica
-#se ele é positivo, negativo ou igual a zero.
+﻿#Um script que solicita ao usuário um número e verifica se ele é positivo, negativo ou igual a zero.
 
 Clear-Host
 

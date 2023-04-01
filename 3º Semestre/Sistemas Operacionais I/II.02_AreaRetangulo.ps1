@@ -1,5 +1,7 @@
-﻿#Um script que calcula a área de um retângulo e verifica se a área é maior,
-#menor ou igual a 50. O usuário deve inserir a base e a altura do retângulo.
+﻿<#
+Um script que calcula a área de um retângulo e verifica se a área é maior,
+menor ou igual a 50. O usuário deve inserir a base e a altura do retângulo.
+#>
 
 Clear-Host
 

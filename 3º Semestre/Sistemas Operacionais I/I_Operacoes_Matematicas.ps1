@@ -1,4 +1,4 @@
-﻿#Um script que realiza operações matemáticas básicas
+﻿#Um script que realiza operações matemáticas básicas.
 
 Clear-Host
 
