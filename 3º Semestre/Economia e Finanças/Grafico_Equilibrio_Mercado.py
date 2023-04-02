@@ -11,7 +11,7 @@ desloc_demanda_inicial = 0
 def demanda(quantidade):
     return 350 - 0.5 * quantidade
 
-# Defina a função que calcula a deslocação da demanda
+# Define a função que calcula a deslocação da demanda
 def desloc_demanda(quantidade, preco, concorrencia):
     return demanda(quantidade + desloc_demanda_inicial) - 1 * preco + 1 * concorrencia
 
@@ -29,7 +29,7 @@ demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='blue', lw=2)
 # Plotagem da função de deslocação da demanda inicial
 desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_inicial, concorrencia_inicial), color='black', lw=2)
 
-# Ajuste do espaço para os sliders
+# Ajusta o espaço para os sliders
 fig.subplots_adjust(left=0.25, bottom=0.4)
 
 # Cria um slider horizontal para controlar o preço do produto
