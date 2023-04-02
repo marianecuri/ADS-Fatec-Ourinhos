@@ -3,17 +3,17 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 
 # Define os parâmetros iniciais
-preco_inicial = 0
-concorrencia_inicial = 0
+preco_inicial = 250
+concorrencia_inicial = 250
 desloc_demanda_inicial = 0
 
 # Define a função de demanda
 def demanda(quantidade):
-    return 200 - 0.4 * quantidade
+    return 350 - 0.5 * quantidade
 
 # Defina a função que calcula a deslocação da demanda
 def desloc_demanda(quantidade, preco, concorrencia):
-    return demanda(quantidade + desloc_demanda_inicial) - 0.2 * preco + 0.1 * concorrencia
+    return demanda(quantidade + desloc_demanda_inicial) - 1 * preco + 1 * concorrencia
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
@@ -54,10 +54,14 @@ slider_concorrencia = Slider(
 
 # Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
-    # Atualiza a função de deslocação da demanda
-    desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, slider_preco.val, slider_concorrencia.val))
-    # Atualiza o ponto vermelho na reta de deslocação da demanda
-    point.set_data([desloc_demanda_inicial + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()], slider_preco.val])
+    if val == slider_preco.val:
+        # Atualiza o ponto vermelho na reta de demanda
+        point.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
+    else:
+        # Atualiza a função de deslocação da demanda
+        desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, slider_preco.val, slider_concorrencia.val))
+        # Atualiza o ponto vermelho na reta de deslocação da demanda
+        point.set_data([desloc_demanda_inicial + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
     fig.canvas.draw_idle()
 
 # Registra a função de atualização com cada slider
@@ -71,6 +75,9 @@ button = Button(resetax, 'Reset', hovercolor='0.975')
 def reset(event):
     slider_preco.reset()
     slider_concorrencia.reset()
+    desloc_demanda_inicial = 0
+    desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_inicial, concorrencia_inicial))
+    point.set_data([desloc_demanda_inicial + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_inicial).argmin()]], [preco_inicial])
 button.on_clicked(reset)
 
 # Plotagem do ponto vermelho na reta de deslocação da demanda inicial
