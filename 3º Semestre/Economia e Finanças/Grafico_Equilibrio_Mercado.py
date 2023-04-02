@@ -2,78 +2,78 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 
-# Define initial parameters
-init_price = 0
-init_comp_price = 0
-init_demand_shift = 0
+# Define os parâmetros iniciais
+preco_inicial = 0
+concorrencia_inicial = 0
+desloc_demanda_inicial = 0
 
-# Define demand function
-def demand(quantity):
-    return 200 - 0.4 * quantity
+# Define a função de demanda
+def demanda(quantidade):
+    return 200 - 0.4 * quantidade
 
-# Define function to calculate shifted demand
-def shifted_demand(quantity, price, comp_price):
-    return demand(quantity + init_demand_shift) - 0.2 * price + 0.1 * comp_price
+# Defina a função que calcula a deslocação da demanda
+def desloc_demanda(quantidade, preco, concorrencia):
+    return demanda(quantidade + desloc_demanda_inicial) - 0.2 * preco + 0.1 * concorrencia
 
-# Create the figure and the line that we will manipulate
+# Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
 ax.set_xlabel('Quantidade')
 ax.set_ylabel('Preço')
 ax.set_xlim([0, 500])
 ax.set_ylim([0, 500])
 
-# Plot demand function
-quantity = np.linspace(0, 500, 1000)
-demand_line, = ax.plot(quantity, demand(quantity), color='blue', lw=2)
+# Plotagem da função de demanda
+quantidade = np.linspace(0, 500, 1000)
+demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='blue', lw=2)
 
-# Plot initial shifted demand function
-shifted_demand_line, = ax.plot(quantity, shifted_demand(quantity, init_price, init_comp_price), color='black', lw=2)
+# Plotagem da função de deslocação da demanda inicial
+desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_inicial, concorrencia_inicial), color='black', lw=2)
 
-# adjust the main plot to make room for the sliders
+# Ajuste do espaço para os sliders
 fig.subplots_adjust(left=0.25, bottom=0.4)
 
-# Make a horizontal slider to control the product price.
-axprice = fig.add_axes([0.3, 0.25, 0.5, 0.03])
-price_slider = Slider(
-    ax=axprice,
+# Cria um slider horizontal para controlar o preço do produto
+axpreco = fig.add_axes([0.3, 0.25, 0.5, 0.03])
+slider_preco = Slider(
+    ax=axpreco,
     label='Preço do Produto',
     valmin=0,
     valmax=500,
-    valinit=init_price,
+    valinit=preco_inicial,
 )
 
-# Make a horizontal slider to control the competing product price.
-axcomp_price = fig.add_axes([0.3, 0.15, 0.5, 0.03])
-comp_price_slider = Slider(
-    ax=axcomp_price,
+# Cria um slider horizontal para controlar o preço de produtos concorrentes
+axconcorrencia = fig.add_axes([0.3, 0.15, 0.5, 0.03])
+slider_concorrencia = Slider(
+    ax=axconcorrencia,
     label='Preço de Produtos Concorrentes',
     valmin=0,
     valmax=500,
-    valinit=init_comp_price,
+    valinit=concorrencia_inicial,
 )
 
-# The function to be called anytime a slider's value changes
+# Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
-    # Update shifted demand function and plot
-    shifted_demand_line.set_ydata(shifted_demand(quantity, price_slider.val, comp_price_slider.val))
-    # Update red point on shifted demand line
-    point.set_data([init_demand_shift + shifted_demand_line.get_xdata()[np.abs(shifted_demand_line.get_ydata() - price_slider.val).argmin()], price_slider.val])
+    # Atualiza a função de deslocação da demanda
+    desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, slider_preco.val, slider_concorrencia.val))
+    # Atualiza o ponto vermelho na reta de deslocação da demanda
+    point.set_data([desloc_demanda_inicial + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()], slider_preco.val])
     fig.canvas.draw_idle()
 
-# register the update function with each slider
-price_slider.on_changed(update)
-comp_price_slider.on_changed(update)
+# Registra a função de atualização com cada slider
+slider_preco.on_changed(update)
+slider_concorrencia.on_changed(update)
 
-# Create a `matplotlib.widgets.Button` to reset the sliders to initial values.
+# Cria um `matplotlib.widgets.Button` para resetar os sliders aos valores iniciais
 resetax = fig.add_axes([0.8, 0.025, 0.1, 0.04])
 button = Button(resetax, 'Reset', hovercolor='0.975')
 
 def reset(event):
-    price_slider.reset()
-    comp_price_slider.reset()
+    slider_preco.reset()
+    slider_concorrencia.reset()
 button.on_clicked(reset)
 
-# Plot red point on initial shifted demand line
-point, = ax.plot([init_demand_shift + shifted_demand_line.get_xdata()[np.abs(shifted_demand_line.get_ydata() - init_price).argmin()]], [init_price], 'ro')
+# Plotagem do ponto vermelho na reta de deslocação da demanda inicial
+point, = ax.plot([desloc_demanda_inicial + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_inicial).argmin()]], [preco_inicial], 'ro')
 
 plt.show()
