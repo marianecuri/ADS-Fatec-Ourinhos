@@ -71,6 +71,10 @@ def update(val):
     if val == slider_preco.val:
         # Atualiza o ponto vermelho na reta de demanda
         point.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
+        
+        if slider_outros_produtos.val != slider_outros_produtos.valinit or slider_renda.val != slider_renda.valinit:
+        	# Atualiza a função de deslocação da demanda
+        	desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, slider_preco.val, slider_outros_produtos.val, slider_renda.val))
 
     else:
         # Atualiza a função de deslocação da demanda
