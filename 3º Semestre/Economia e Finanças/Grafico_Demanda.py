@@ -18,8 +18,8 @@ def desloc_demanda(quantidade, preco, outros_produtos, renda):
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
-ax.set_xlabel('Quantidade')
-ax.set_ylabel('Preço')
+ax.set_xlabel('Quantidade (Unidades)')
+ax.set_ylabel('Preço (R$)')
 ax.set_xlim([0, 2500])
 ax.set_ylim([0, 250])
 
@@ -37,7 +37,7 @@ fig.subplots_adjust(left=0.25, bottom=0.4)
 axpreco = fig.add_axes([0.3, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
-    label='Preço do Produto',
+    label='Preço do Produto (R$)',
     valmin=0,
     valmax=300,
     valinit=preco_init,
@@ -48,7 +48,7 @@ slider_preco = Slider(
 axoutros_produtos = fig.add_axes([0.3, 0.20, 0.5, 0.03])
 slider_outros_produtos = Slider(
     ax=axoutros_produtos,
-    label='Preço de Produtos Substitutos',
+    label='Preço de Produtos Substitutos (R$)',
     valmin=0,
     valmax=300,
     valinit=outros_produtos_init,
@@ -59,7 +59,7 @@ slider_outros_produtos = Slider(
 axrenda = fig.add_axes([0.3, 0.15, 0.5, 0.03])
 slider_renda = Slider(
     ax=axrenda,
-    label='Renda',
+    label='Renda do Consumidor (R$)',
     valmin=0,
     valmax=100000,
     valinit=renda_init,
