@@ -14,7 +14,7 @@ def demanda(quantidade):
 
 # Define a função que calcula a deslocação da demanda
 def desloc_demanda(quantidade, preco, outros_produtos, renda):
-    return demanda(quantidade + desloc_demanda_init) - 1 * preco + 1 * outros_produtos + (1/3000) * renda
+    return demanda(quantidade + desloc_demanda_init) - 1 * preco + outros_produtos - 1 * preco + (2/43) * renda
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
@@ -30,7 +30,8 @@ demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='blue', lw=2)
 # Plotagem da função de deslocação da demanda inicial
 desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init, outros_produtos_init, renda_init), color='black', lw=2)
 
-# Ajuste do espaço para os sliders
+# Título do gráfico e ajuste do espaço para os sliders
+plt.title('Gráfico de Demanda')
 fig.subplots_adjust(left=0.25, bottom=0.4)
 
 # Cria um slider horizontal para controlar o preço do produto
@@ -61,7 +62,7 @@ slider_renda = Slider(
     ax=axrenda,
     label='Renda do Consumidor (R$)',
     valmin=0,
-    valmax=100000,
+    valmax=50000,
     valinit=renda_init,
     valstep=0.01,
 )
