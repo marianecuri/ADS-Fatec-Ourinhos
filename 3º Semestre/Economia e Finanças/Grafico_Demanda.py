@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 
-# Define os parâmetros iniciais
-preco_init = 139
-outros_produtos_init = 139
-renda_init = 2424
-desloc_demanda_init = 0
+def GraficoDemanda():
+    # Define os parâmetros iniciais
+    preco_init = 139
+    outros_produtos_init = 139
+    renda_init = 2424
+    desloc_demanda_init = 0
 
-def grafico_demanda():
     # Define a função de demanda
     def demanda(quantidade):
         return 304 - 0.16 * quantidade
@@ -76,7 +76,7 @@ def grafico_demanda():
 
             # Atualiza o ponto vermelho na reta de deslocação da demanda
             ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
-                    
+                            
         if slider_outros_produtos.val != slider_outros_produtos.valinit or slider_renda.val != slider_renda.valinit:
             # Atualiza a função de deslocação da demanda
             desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, slider_preco.val, slider_outros_produtos.val, slider_renda.val))
@@ -102,8 +102,8 @@ def grafico_demanda():
         desloc_demanda_init = 0
         desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_init, outros_produtos_init, renda_init))
         ponto1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
-        ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
-    button.on_clicked(reset)
+        ponto1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+        button.on_clicked(reset)
 
     # Plotagem do ponto vermelho na reta de deslocação da demanda inicial
     ponto1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ro')
