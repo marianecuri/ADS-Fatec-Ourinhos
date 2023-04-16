@@ -6,11 +6,11 @@ Clear-Host
 $wshell = New-Object -com Wscript.Shell
 
 #Mostra as opções de operações e recebe a resposta do usuário
-"Selecione uma opção:
-[A]Adição
-[S]Subtração
-[M]Multiplicação
-[D]Divisão"
+Write-Host "Selecione uma opção:"
+Write-Host "[A] Adição"
+Write-Host "[S] Subtração"
+Write-Host "[M] Multiplicação"
+Write-Host "[D] Divisão"
 
 $operacao = Read-Host
 
