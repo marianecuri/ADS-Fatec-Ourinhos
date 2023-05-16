@@ -118,7 +118,7 @@ def reset(event):
     ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
 button.on_clicked(reset)
 
-# Plotagem dos pontos vermelhos nas retas de demanda e se deslocação da demanda inicial
+# Plotagem dos pontos vermelhos nas retas de demanda e de deslocação da demanda inicial
 ponto1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ro')
 ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ro')
 

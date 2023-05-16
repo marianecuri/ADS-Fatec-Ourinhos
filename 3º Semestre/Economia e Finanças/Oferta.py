@@ -9,7 +9,7 @@ desloc_oferta_init = 0
 
 # Define a função de oferta
 def oferta(quantidade):
-    return 38 + 0.1 * quantidade
+    return 36 + 0.1 * quantidade
 
 # Define a função que calcula a deslocação da oferta
 def desloc_oferta(quantidade, preco, insumos):

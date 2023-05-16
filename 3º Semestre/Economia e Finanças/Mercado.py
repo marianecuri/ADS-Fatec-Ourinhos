@@ -13,7 +13,7 @@ desloc_demanda_init = 0
 
 # Define a função de oferta
 def oferta(quantidade):
-    return 38 + 0.1 * quantidade
+    return 36 + 0.1 * quantidade
 
 # Define a função que calcula a deslocação da oferta
 def desloc_oferta(quantidade, preco, insumos):
@@ -109,16 +109,16 @@ slider_insumos = Slider(
 
 # Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
-    if val == slider_preco.val:
+    #if val == slider_preco.val:
         # Atualiza os pontos vermelhos na reta de oferta e demanda
-        ponto_oferta1.set_data([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
+        #ponto_oferta1.set_data([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
 
-        ponto_demanda1.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
+        #ponto_demanda1.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
         
         # Atualiza os pontos vermelhos na reta de deslocação da oferta e demanda
-        ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+        #ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
 
-        ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+        #ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
         
     if slider_outros_produtos.val != slider_outros_produtos.valinit or slider_renda.val != slider_renda.valinit or slider_expectativa.val != slider_expectativa.valinit or slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta e demanda
@@ -153,7 +153,7 @@ def reset(event):
     slider_insumos.reset()
 
     desloc_oferta_init = 0
-    desloc_oferta_reta.set_ydata(desloc_demanda(quantidade, preco_init, insumos_init))
+    desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, preco_init, insumos_init))
     desloc_demanda_init = 0
     desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_init, outros_produtos_init, renda_init, expectativa_init))
     
