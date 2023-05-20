@@ -117,10 +117,6 @@ def encontrar_equilibrio():
 
 # Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
-    # Atualiza o ponto de equilíbrio
-    equilibrio_x, equilibrio_y = encontrar_equilibrio()
-    ponto_equilibrio2.set_data([equilibrio_x], [equilibrio_y])
-
     if val == slider_preco.val:
         # Atualiza os pontos na reta de oferta e demanda
         ponto_oferta1.set_data([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])

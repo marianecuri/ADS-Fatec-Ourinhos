@@ -77,7 +77,7 @@ def update(val):
 slider_preco.on_changed(update)
 slider_insumos.on_changed(update)
 
-# Cria um `matplotlib.widgets.Button` para resetar os sliders aos valores iniciais
+# Cria um botão para resetar os sliders aos valores iniciais
 axreset = fig.add_axes([0.85, 0.05, 0.1, 0.04])
 button = Button(axreset, 'Resetar', hovercolor='0.975')
 
