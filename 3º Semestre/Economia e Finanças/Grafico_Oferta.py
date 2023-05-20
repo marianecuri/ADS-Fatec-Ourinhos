@@ -24,13 +24,13 @@ ax.set_ylim([0, 250])
 
 # Plotagem da função de deslocação da oferta inicial
 quantidade = np.linspace(0, 2500, 5000)
-desloc_oferta_reta, = ax.plot(quantidade, desloc_oferta(quantidade, preco_init, insumos_init), color='black', lw=2)
+desloc_oferta_reta, = ax.plot(quantidade, desloc_oferta(quantidade, preco_init, insumos_init), color='orange', lw=2)
 
 # Plotagem da função de oferta
-oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='orange', lw=2)
+oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='black', lw=2)
 
 # Título do gráfico e ajuste do espaço para os sliders
-plt.title('Gráfico de Oferta')
+plt.title('Gráfico da Curva de Oferta')
 fig.subplots_adjust(left=0.25, bottom=0.4)
 
 # Cria um slider horizontal para controlar o preço do produto
@@ -58,17 +58,17 @@ slider_insumos = Slider(
 # Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
     if val == slider_preco.val:
-        # Atualiza o ponto vermelho na reta de oferta
+        # Atualiza o ponto na reta de oferta
         ponto1.set_data([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
         
-        # Atualiza o ponto vermelho na reta de deslocação da oferta
+        # Atualiza o ponto na reta de deslocação da oferta
         ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
         
     if slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta
-        desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, slider_preco.val, slider_insumos.val))
+        desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, 139, slider_insumos.val))
 	
-        # Atualiza o ponto vermelho na reta de deslocação da oferta
+        # Atualiza o ponto na reta de deslocação da oferta
         ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
 
     fig.canvas.draw_idle()
@@ -90,11 +90,11 @@ def reset(event):
     ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
 button.on_clicked(reset)
 
-# Plotagem dos pontos vermelhos nas retas de oferta e de deslocação da oferta inicial
-ponto1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ro')
-ponto2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ro')
+# Plotagem dos pontos nas retas de oferta e de deslocação da oferta inicial
+ponto2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=6)
+ponto1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=6)
 
 # Cria uma legenda para identificar as linhas/retas
-ax.legend((oferta_reta, desloc_oferta_reta), ('Oferta', 'Deslocação da Oferta'))
+ax.legend((oferta_reta, desloc_oferta_reta, ponto2), ('Oferta', 'Deslocação da Oferta','Preço x Quantidade'))
 
 plt.show()
