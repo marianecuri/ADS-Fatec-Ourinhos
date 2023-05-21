@@ -49,11 +49,11 @@ desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init
 demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='black', lw=2)
 
 # Título do gráfico e ajuste do espaço para os sliders
-plt.title('Gráfico de Equilíbrio de Mercado')
-fig.subplots_adjust(left=0.25, bottom=0.4)
+plt.title('Gráfico de Equilíbrio de Mercado', y=1.05, fontsize=16, weight='bold')
+fig.subplots_adjust(left=0.1, bottom=0.4)
 
 # Cria um slider horizontal para controlar o preço do produto
-axpreco = fig.add_axes([0.3, 0.25, 0.5, 0.03])
+axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
@@ -61,10 +61,11 @@ slider_preco = Slider(
     valmax=300,
     valinit=preco_init,
     valstep=0.01,
+    color = 'mediumaquamarine'
 )
 
 # Cria um slider horizontal para controlar a renda do consumidor
-axrenda = fig.add_axes([0.3, 0.20, 0.5, 0.03])
+axrenda = fig.add_axes([0.25, 0.20, 0.5, 0.03])
 slider_renda = Slider(
     ax=axrenda,
     label='Renda do Consumidor (R$)',
@@ -72,10 +73,11 @@ slider_renda = Slider(
     valmax=50000,
     valinit=renda_init,
     valstep=0.01,
+    color = 'cornflowerblue'
 )
 
 # Cria um slider horizontal para controlar o preço de produtos substitutos
-axoutros_produtos = fig.add_axes([0.3, 0.15, 0.5, 0.03])
+axoutros_produtos = fig.add_axes([0.25, 0.15, 0.5, 0.03])
 slider_outros_produtos = Slider(
     ax=axoutros_produtos,
     label='Preço de Produtos Substitutos (R$)',
@@ -83,10 +85,11 @@ slider_outros_produtos = Slider(
     valmax=300,
     valinit=outros_produtos_init,
     valstep=0.01,
+    color = 'cornflowerblue'
 )
 
 # Cria um slider horizontal para controlar a expectativa do consumidor
-axexpectativa = fig.add_axes([0.3, 0.10, 0.5, 0.03])
+axexpectativa = fig.add_axes([0.25, 0.10, 0.5, 0.03])
 slider_expectativa = Slider(
     ax=axexpectativa,
     label='Expectativa do Consumidor (%)',
@@ -94,10 +97,11 @@ slider_expectativa = Slider(
     valmax=100,
     valinit=expectativa_init,
     valstep=0.01,
+    color = 'cornflowerblue'
 )
 
 # Cria um slider horizontal para controlar o preço dos insumos
-axinsumos = fig.add_axes([0.3, 0.05, 0.5, 0.03])
+axinsumos = fig.add_axes([0.25, 0.05, 0.5, 0.03])
 slider_insumos = Slider(
     ax=axinsumos,
     label='Preço dos Insumos Produtivos (R$)',
@@ -105,6 +109,7 @@ slider_insumos = Slider(
     valmax=300,
     valinit=insumos_init,
     valstep=0.01,
+    color = 'sandybrown'
 )
 
 # Função que encontra o ponto de equilíbrio entre as retas de oferta e demanda
@@ -153,8 +158,8 @@ slider_expectativa.on_changed(update)
 slider_insumos.on_changed(update)
 
 # Cria um botão para resetar os sliders aos valores iniciais
-axreset = fig.add_axes([0.85, 0.05, 0.1, 0.04])
-button = Button(axreset, 'Resetar', hovercolor='0.975')
+axreset = fig.add_axes([0.8, 0.25, 0.1, 0.04])
+button = Button(axreset, 'Resetar', color = 'aquamarine', hovercolor='mediumaquamarine')
 
 def reset(event):
     slider_preco.reset()
@@ -176,7 +181,7 @@ def reset(event):
 
 button.on_clicked(reset)
 
-# Plotagem dos ponto de equilíbrio, das retas de oferta/demanda e de deslocação da oferta/demanda
+# Plotagem dos pontos de equilíbrio e dos pontos nas retas de oferta/demanda e de deslocação da oferta/demanda
 ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=5)
 ponto_demanda2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=5)
 

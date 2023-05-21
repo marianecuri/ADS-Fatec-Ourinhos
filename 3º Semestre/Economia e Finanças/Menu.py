@@ -1,6 +1,6 @@
+import subprocess
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
-import subprocess
 
 # Função para executar o programa de oferta
 def botao_oferta(event):
@@ -15,30 +15,25 @@ def botao_mercado(event):
     subprocess.run(["python", "Economia e Finanças\Grafico_Equilibrio_Mercado.py"])
 
 # Criando e dando função ao botão de oferta
-axBotao1 = plt.axes([0.25, 0.70, 0.5, 0.1])
-botao1 = Button(axBotao1, 'Gráfico da Curva de Oferta')
-botao1.color = 'palegoldenrod'
-botao1.hovercolor = 'sandybrown'
-botao1.on_clicked(botao_oferta)
+axBtn1 = plt.axes([0.25, 0.50, 0.5, 0.1])
+btn1 = Button(axBtn1, 'Gráfico da Curva de Oferta', color='navajowhite', hovercolor='sandybrown')
+btn1.on_clicked(botao_oferta)
 
 # Criando e dando função ao botão de demanda
-axBotao2 = plt.axes([0.25, 0.55, 0.5, 0.1])
-botao2 = Button(axBotao2, 'Gráfico da Curva de Demanda')
-botao2.color = 'powderblue'
-botao2.hovercolor = 'steelblue'
-botao2.on_clicked(botao_demanda)
+axBtn2 = plt.axes([0.25, 0.35, 0.5, 0.1])
+btn2 = Button(axBtn2, 'Gráfico da Curva de Demanda', color='lightsteelblue', hovercolor='cornflowerblue')
+btn2.on_clicked(botao_demanda)
 
 # Criando e dando função ao botão de equilíbrio de mercado
-axBotao3 = plt.axes([0.25, 0.40, 0.5, 0.1])
-botao3 = Button(axBotao3, 'Gráfico de Equilíbrio de Mercado')
-botao3.color = 'palegreen'
-botao3.hovercolor = 'mediumseagreen'
-botao3.on_clicked(botao_mercado)
+axBtn3 = plt.axes([0.25, 0.20, 0.5, 0.1])
+btn3 = Button(axBtn3, 'Gráfico de Equilíbrio de Mercado', color='aquamarine', hovercolor='mediumaquamarine')
+btn3.on_clicked(botao_mercado)
 
-# Adicionando título
-plt.title('Menu', y=5, fontsize=18)
-
-# Adicionando texto
-texto = plt.text(0.5, 4.5, 'Selecione uma opção para visualizar o gráfico:', ha='center', va='center')
+# Adicionando título e texto
+plt.title('Menu', y=5, fontsize=20, weight='bold')
+texto1 = plt.text(0.5, 7.25, 'Economia e Finanças', ha='center', va='center', fontsize=16, weight='bold')
+texto2 = plt.text(0.5, 6.75, 'Princípios de Funcionamento de Mercado', ha='center', va='center', fontsize=12)
+texto3 = plt.text(0.5, 6.25, 'Representação gráfica das forças de oferta e demanda', ha='center', va='center', fontsize=12)
+texto4 = plt.text(0.5, 4.5, 'Selecione uma opção para visualizar o gráfico correspondente:', ha='center', va='center', fontsize=12)
 
 plt.show()

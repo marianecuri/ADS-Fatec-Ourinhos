@@ -30,11 +30,11 @@ desloc_oferta_reta, = ax.plot(quantidade, desloc_oferta(quantidade, preco_init, 
 oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='black', lw=2)
 
 # Título do gráfico e ajuste do espaço para os sliders
-plt.title('Gráfico da Curva de Oferta')
-fig.subplots_adjust(left=0.25, bottom=0.4)
+plt.title('Gráfico da Curva de Oferta', y=1.05, fontsize=16, weight='bold')
+fig.subplots_adjust(left=0.1, bottom=0.4)
 
 # Cria um slider horizontal para controlar o preço do produto
-axpreco = fig.add_axes([0.3, 0.25, 0.5, 0.03])
+axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
@@ -42,10 +42,11 @@ slider_preco = Slider(
     valmax=300,
     valinit=preco_init,
     valstep=0.01,
+    color = 'sandybrown'
 )
 
 # Cria um slider horizontal para controlar o preço dos insumos
-axinsumos = fig.add_axes([0.3, 0.20, 0.5, 0.03])
+axinsumos = fig.add_axes([0.25, 0.20, 0.5, 0.03])
 slider_insumos = Slider(
     ax=axinsumos,
     label='Preço dos Insumos Produtivos (R$)',
@@ -53,6 +54,7 @@ slider_insumos = Slider(
     valmax=300,
     valinit=insumos_init,
     valstep=0.01,
+    color = 'sandybrown'
 )
 
 # Função a ser chamada toda vez que o valor de um slider muda
@@ -78,8 +80,8 @@ slider_preco.on_changed(update)
 slider_insumos.on_changed(update)
 
 # Cria um botão para resetar os sliders aos valores iniciais
-axreset = fig.add_axes([0.85, 0.05, 0.1, 0.04])
-button = Button(axreset, 'Resetar', hovercolor='0.975')
+axreset = fig.add_axes([0.8, 0.25, 0.1, 0.04])
+button = Button(axreset, 'Resetar', color = 'navajowhite', hovercolor='sandybrown')
 
 def reset(event):
     slider_preco.reset()
