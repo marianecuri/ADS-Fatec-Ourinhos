@@ -4,15 +4,15 @@ from matplotlib.widgets import Button
 
 # Função para executar o programa de oferta
 def botao_oferta(event):
-    subprocess.run(["python", "Economia e Finanças\Grafico_Oferta.py"])
+    subprocess.run(['python', 'Economia e Finanças\Grafico_Oferta.py'])
 
 # Função para executar o programa de demanda
 def botao_demanda(event):
-    subprocess.run(["python", "Economia e Finanças\Grafico_Demanda.py"])
+    subprocess.run(['python', 'Economia e Finanças\Grafico_Demanda.py'])
 
 # Função para executar o programa de equilíbrio de mercado
 def botao_mercado(event):
-    subprocess.run(["python", "Economia e Finanças\Grafico_Equilibrio_Mercado.py"])
+    subprocess.run(['python', 'Economia e Finanças\Grafico_Equilibrio_Mercado.py'])
 
 # Criando e dando função ao botão de oferta
 axBtn1 = plt.axes([0.25, 0.50, 0.5, 0.1])
