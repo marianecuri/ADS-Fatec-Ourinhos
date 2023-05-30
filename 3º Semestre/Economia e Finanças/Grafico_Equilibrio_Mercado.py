@@ -119,6 +119,7 @@ def encontrar_equilibrio():
     desloc_demanda_val = desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val)
     equilibrio_index = np.argmin(np.abs(desloc_oferta_val - desloc_demanda_val))
     return quantidade[equilibrio_index], desloc_oferta_val[equilibrio_index]
+equilibrio_x, equilibrio_y = encontrar_equilibrio()
 
 # Função a ser chamada toda vez que o valor de um slider muda
 def update(val):
@@ -128,26 +129,29 @@ def update(val):
 
         ponto_demanda1.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
         
-        # Atualiza os pontos na reta de deslocação da oferta e demanda
-        ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
-
-        ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
-        
     if slider_renda.val != slider_renda.valinit or slider_outros_produtos.val != slider_outros_produtos.valinit or slider_expectativa.val != slider_expectativa.valinit or slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta e demanda
         desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, 139, slider_insumos.val))
 
         desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
 	
-        # Atualiza o ponto na reta de deslocação da oferta e demanda
-        ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    # Atualiza o ponto na reta de deslocação da oferta e demanda
+    ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
 
-        ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
     
     # Atualiza o ponto de equilíbrio
     equilibrio_x, equilibrio_y = encontrar_equilibrio()
     ponto_equilibrio2.set_data([equilibrio_x], [equilibrio_y])
-
+    
+    # Atualiza os stemplots verticais
+    stem_vertical2.set_xdata([equilibrio_x] * 2)
+    stem_vertical2.set_ydata([0, equilibrio_y])
+    
+    # Atualiza os stemplots horizontais
+    stem_horizontal2.set_xdata([0, equilibrio_x])
+    stem_horizontal2.set_ydata([equilibrio_y] * 2)
+    
     fig.canvas.draw_idle()
 
 # Registra a função de atualização com cada slider
@@ -178,8 +182,20 @@ def reset(event):
 
     ponto_demanda1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
     ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    
+    stem_vertical2.set_xdata([equilibrio_x] * 2)
+    stem_vertical2.set_ydata([0, equilibrio_y])
+    
+    stem_horizontal2.set_xdata([0, equilibrio_x])
+    stem_horizontal2.set_ydata([equilibrio_y] * 2)
 
 button.on_clicked(reset)
+
+# Cria os stemplots
+stem_vertical1, = ax.plot([equilibrio_x] * 2, [0, equilibrio_y], 'k--', color='grey')
+stem_vertical2, = ax.plot([equilibrio_x] * 2, [0, equilibrio_y], 'k--', color='grey')
+stem_horizontal1, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, 'k--', color='grey')
+stem_horizontal2, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, 'k--', color='grey')
 
 # Plotagem dos pontos de equilíbrio e dos pontos nas retas de oferta/demanda e de deslocação da oferta/demanda
 ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=5)
