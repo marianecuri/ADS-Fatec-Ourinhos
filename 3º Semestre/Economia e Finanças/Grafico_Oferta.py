@@ -42,7 +42,7 @@ slider_preco = Slider(
     valmax=300,
     valinit=preco_init,
     valstep=0.01,
-    color = 'sandybrown'
+    color='sandybrown'
 )
 
 # Cria um slider horizontal para controlar o preço dos insumos
@@ -54,7 +54,7 @@ slider_insumos = Slider(
     valmax=300,
     valinit=insumos_init,
     valstep=0.01,
-    color = 'sandybrown'
+    color='sandybrown'
 )
 
 # Função a ser chamada toda vez que o valor de um slider muda
@@ -62,16 +62,27 @@ def update(val):
     if val == slider_preco.val:
         # Atualiza o ponto na reta de oferta
         ponto1.set_data([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
-        
-        # Atualiza o ponto na reta de deslocação da oferta
-        ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
-        
+
     if slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta
         desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, 139, slider_insumos.val))
-	
-        # Atualiza o ponto na reta de deslocação da oferta
-        ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+
+    # Atualiza o ponto na reta de deslocação da oferta
+    ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+        
+    # Atualiza os stemplots verticais
+    stem_vertical1.set_xdata([quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]] * 2)
+    stem_vertical1.set_ydata([0, slider_preco.val])
+        
+    stem_vertical2.set_xdata([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]] * 2)
+    stem_vertical2.set_ydata([0, slider_preco.val])
+        
+    # Atualiza os stemplots horizontais
+    stem_horizontal1.set_xdata([0, quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]])
+    stem_horizontal1.set_ydata([slider_preco.val] * 2)
+
+    stem_horizontal2.set_xdata([0, desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]])
+    stem_horizontal2.set_ydata([slider_preco.val] * 2)
 
     fig.canvas.draw_idle()
 
@@ -81,22 +92,41 @@ slider_insumos.on_changed(update)
 
 # Cria um botão para resetar os sliders aos valores iniciais
 axreset = fig.add_axes([0.8, 0.25, 0.1, 0.04])
-button = Button(axreset, 'Resetar', color = 'navajowhite', hovercolor='sandybrown')
+button = Button(axreset, 'Resetar', color='navajowhite', hovercolor='sandybrown')
 
 def reset(event):
     slider_preco.reset()
     slider_insumos.reset()
+    
     desloc_oferta_init = 0
     desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, preco_init, insumos_init))
+    
     ponto1.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
     ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    
+    stem_vertical1.set_xdata([quantidade[np.abs(oferta(quantidade) - preco_init).argmin()]] * 2)
+    stem_vertical1.set_ydata([0, preco_init])
+    stem_vertical2.set_xdata([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]] * 2)
+    stem_vertical2.set_ydata([0, slider_preco.val])
+    
+    stem_horizontal1.set_xdata([0, quantidade[np.abs(oferta(quantidade) - slider_preco.val).argmin()]])
+    stem_horizontal1.set_ydata([slider_preco.val] * 2)
+    stem_horizontal2.set_xdata([0, desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]])
+    stem_horizontal2.set_ydata([slider_preco.val] * 2)
+    
 button.on_clicked(reset)
+
+# Cria os stemplots
+stem_vertical1, = ax.plot([quantidade[np.abs(oferta(quantidade) - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
+stem_vertical2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
+stem_horizontal1, = ax.plot([0, quantidade[np.abs(oferta(quantidade) - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
+stem_horizontal2, = ax.plot([0, desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
 
 # Plotagem dos pontos nas retas de oferta e de deslocação da oferta inicial
 ponto2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=6)
 ponto1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=6)
 
 # Cria uma legenda para identificar as linhas/retas
-ax.legend((oferta_reta, desloc_oferta_reta, ponto2), ('Oferta', 'Deslocação da Oferta','Preço x Quantidade'))
+ax.legend((oferta_reta, desloc_oferta_reta, ponto2), ('Oferta', 'Deslocação da Oferta', 'Preço x Quantidade'))
 
 plt.show()
