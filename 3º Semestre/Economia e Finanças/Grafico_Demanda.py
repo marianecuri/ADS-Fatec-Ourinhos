@@ -89,16 +89,27 @@ def update(val):
         # Atualiza o ponto na reta de demanda
         ponto1.set_data([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]], [slider_preco.val])
         
-        # Atualiza o ponto na reta de deslocação da demanda
-        ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
-        
     if slider_renda.val != slider_renda.valinit or slider_outros_produtos.val != slider_outros_produtos.valinit or slider_expectativa.val != slider_expectativa.valinit:
         # Atualiza a função de deslocação da demanda
         desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
 	
-        # Atualiza o ponto na reta de deslocação da demanda
-        ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    # Atualiza o ponto na reta de deslocação da demanda
+    ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    
+    # Atualiza os stemplots verticais
+    stem_vertical1.set_xdata([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]] * 2)
+    stem_vertical1.set_ydata([0, slider_preco.val])
+        
+    stem_vertical2.set_xdata([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]] * 2)
+    stem_vertical2.set_ydata([0, slider_preco.val])
+        
+    # Atualiza os stemplots horizontais
+    stem_horizontal1.set_xdata([0, quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]])
+    stem_horizontal1.set_ydata([slider_preco.val] * 2)
 
+    stem_horizontal2.set_xdata([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]])
+    stem_horizontal2.set_ydata([slider_preco.val] * 2)
+    
     fig.canvas.draw_idle()
 
 # Registra a função de atualização com cada slider
@@ -116,11 +127,30 @@ def reset(event):
     slider_renda.reset()
     slider_outros_produtos.reset()
     slider_expectativa.reset()
+    
     desloc_demanda_init = 0
     desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init))
+    
     ponto1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
     ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    
+    stem_vertical1.set_xdata([quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]] * 2)
+    stem_vertical1.set_ydata([0, preco_init])
+    stem_vertical2.set_xdata([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]] * 2)
+    stem_vertical2.set_ydata([0, slider_preco.val])
+    
+    stem_horizontal1.set_xdata([0, quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]])
+    stem_horizontal1.set_ydata([slider_preco.val] * 2)
+    stem_horizontal2.set_xdata([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]])
+    stem_horizontal2.set_ydata([slider_preco.val] * 2)
+    
 button.on_clicked(reset)
+
+# Cria os stemplots
+stem_vertical1, = ax.plot([quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
+stem_vertical2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
+stem_horizontal1, = ax.plot([0, quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
+stem_horizontal2, = ax.plot([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
 
 # Plotagem dos pontos nas retas de demanda e de deslocação da demanda inicial
 ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=6)
