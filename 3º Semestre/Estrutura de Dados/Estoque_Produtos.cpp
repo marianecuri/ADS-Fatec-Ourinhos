@@ -4,6 +4,7 @@
 #include <clocale>
 using namespace std;
 
+// Define a Struct Produto
 struct Produto {
     wchar_t nome[30];    // Nome do produto
     int codigo;          // Código do produto

@@ -7,6 +7,7 @@ using namespace std;
 int distancia_cidades (int, int);
 float valor_passagem (int, int);
 
+// Define a Struct Passagem
 typedef struct {
     wchar_t cidades[50];
     wchar_t poltrona[15];
@@ -175,7 +176,7 @@ int main (){
     return 0;
 }
 
-
+// Função que define as distâncias entre as cidades
 int distancia_cidades (int origem, int destino){
     int distancias[15][15] = {
         // A  CN  CM  Ca  Ch  Ib   Ip   Oc  Ou  Pa  Pl  RS  SG  SC  SP
@@ -199,7 +200,7 @@ int distancia_cidades (int origem, int destino){
     return distancias[origem-1][destino-1];
 }
 
-
+// Função que calcula o valor da passagem
 float valor_passagem (int poltrona, int distancia){
     float valor;
 
