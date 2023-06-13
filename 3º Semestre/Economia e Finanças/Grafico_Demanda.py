@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, Button
+from matplotlib.widgets import Slider, Button, CheckButtons
 
 # Define os parâmetros iniciais
 preco_init = 139
@@ -23,9 +23,10 @@ ax.set_xlabel('Quantidade (Unidades)')
 ax.set_ylabel('Preço (R$)')
 ax.set_xlim([0, 2500])
 ax.set_ylim([0, 250])
+ax.set_xticks(np.arange(0, 2500, 250))
 
 # Plotagem da função de deslocação da demanda inicial
-quantidade = np.linspace(0, 2500, 5000)
+quantidade = np.linspace(100, 1800, 5000)
 desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init), color='blue', lw=2)
 
 # Plotagem da função de demanda
@@ -40,8 +41,8 @@ axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
-    valmin=0,
-    valmax=300,
+    valmin=15,
+    valmax=290,
     valinit=preco_init,
     valstep=0.01,
     color = 'cornflowerblue'
@@ -52,7 +53,7 @@ axrenda = fig.add_axes([0.25, 0.20, 0.5, 0.03])
 slider_renda = Slider(
     ax=axrenda,
     label='Renda do Consumidor (R$)',
-    valmin=0,
+    valmin=100,
     valmax=50000,
     valinit=renda_init,
     valstep=0.01,
@@ -64,8 +65,8 @@ axoutros_produtos = fig.add_axes([0.25, 0.15, 0.5, 0.03])
 slider_outros_produtos = Slider(
     ax=axoutros_produtos,
     label='Preço de Produtos Substitutos (R$)',
-    valmin=0,
-    valmax=300,
+    valmin=15,
+    valmax=290,
     valinit=outros_produtos_init,
     valstep=0.01,
     color = 'cornflowerblue'
@@ -147,14 +148,50 @@ def reset(event):
 button.on_clicked(reset)
 
 # Cria os stemplots
-stem_vertical1, = ax.plot([quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
-stem_vertical2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]] * 2, [0, preco_init], 'k--', color='grey')
-stem_horizontal1, = ax.plot([0, quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
-stem_horizontal2, = ax.plot([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init] * 2, 'k--', color='grey')
+stem_vertical1, = ax.plot([quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]] * 2, [0, preco_init], '--', color='grey')
+stem_vertical2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]] * 2, [0, preco_init], '--', color='grey')
+stem_horizontal1, = ax.plot([0, quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]], [preco_init] * 2, '--', color='grey')
+stem_horizontal2, = ax.plot([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init] * 2, '--', color='grey')
 
 # Plotagem dos pontos nas retas de demanda e de deslocação da demanda inicial
-ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=6)
-ponto1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=6)
+ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=7)
+ponto1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=7)
+
+# Cria um checkbox para controlar a visibilidade do stem_vertical1 e do stem_horizontal1
+ax_check_vertical_horizontal = plt.axes([0.1, 0.9, 0.1, 0.05], frameon=False)
+check_vertical_horizontal = CheckButtons(ax_check_vertical_horizontal, ['Mostrar/ocultar linha auxiliar - Demanda'], [True])
+check_vertical_horizontal.labels[0].set_fontsize(10)
+check_vertical_horizontal.labels[0].set_bbox(None)
+
+# Função para atualizar a visibilidade do stem_vertical1 e do stem_horizontal1
+def update_visibility_vertical_horizontal(label):
+    if check_vertical_horizontal.get_status()[0]:
+        stem_vertical1.set_visible(True)
+        stem_horizontal1.set_visible(True)
+    else:
+        stem_vertical1.set_visible(False)
+        stem_horizontal1.set_visible(False)
+    fig.canvas.draw_idle()
+
+check_vertical_horizontal.on_clicked(update_visibility_vertical_horizontal)
+
+# Cria um checkbox para controlar a visibilidade do stem_vertical2 e do stem_horizontal2
+ax_check_vertical_horizontal2 = plt.axes([0.1, 0.875, 0.1, 0.05], frameon=False)
+check_vertical_horizontal2 = CheckButtons(ax_check_vertical_horizontal2, ['Mostrar/ocultar linha auxiliar - Deslocação da Demanda'], [True])
+check_vertical_horizontal2.labels[0].set_fontsize(10)
+check_vertical_horizontal2.labels[0].set_bbox(None)
+
+# Função para atualizar a visibilidade do stem_vertical2 e do stem_horizontal2
+def update_visibility_vertical_horizontal2(label):
+    if check_vertical_horizontal2.get_status()[0]:
+        stem_vertical2.set_visible(True)
+        stem_horizontal2.set_visible(True)
+    else:
+        stem_vertical2.set_visible(False)
+        stem_horizontal2.set_visible(False)
+    fig.canvas.draw_idle()
+
+check_vertical_horizontal2.on_clicked(update_visibility_vertical_horizontal2)
 
 # Cria uma legenda para identificar as linhas/retas
 ax.legend((demanda_reta, desloc_demanda_reta, ponto2), ('Demanda', 'Deslocação da Demanda', 'Preço x Quantidade'))
