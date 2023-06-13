@@ -12,8 +12,8 @@ def oferta(quantidade):
     return 36 + 0.1 * quantidade
 
 # Define a função que calcula a deslocação da oferta
-def desloc_oferta(quantidade, preco, insumos):
-    return oferta(quantidade) - (1 * preco) + (1 * insumos)
+def desloc_oferta(quantidade_desloc, preco, insumos):
+    return oferta(quantidade_desloc) - (1 * preco) + (1 * insumos)
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
@@ -24,10 +24,11 @@ ax.set_ylim([0, 250])
 ax.set_xticks(np.arange(0, 2500, 250))
 
 # Plotagem da função de deslocação da oferta inicial
-quantidade = np.linspace(100, 1800, 5000)
-desloc_oferta_reta, = ax.plot(quantidade, desloc_oferta(quantidade, preco_init, insumos_init), color='orange', lw=2)
+quantidade_desloc = np.linspace(100, 1800, 5000)
+desloc_oferta_reta, = ax.plot(quantidade_desloc, desloc_oferta(quantidade_desloc, preco_init, insumos_init), color='orange', lw=2)
 
 # Plotagem da função de oferta
+quantidade = np.linspace(100, 1800, 5000)
 oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='black', lw=2)
 
 # Título do gráfico e ajuste do espaço para os sliders
@@ -39,8 +40,8 @@ axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
-    valmin=45,
-    valmax=290,
+    valmin=46,
+    valmax=216,
     valinit=preco_init,
     valstep=0.01,
     color='sandybrown'
@@ -51,8 +52,8 @@ axinsumos = fig.add_axes([0.25, 0.20, 0.5, 0.03])
 slider_insumos = Slider(
     ax=axinsumos,
     label='Preço dos Insumos Produtivos (R$)',
-    valmin=45,
-    valmax=290,
+    valmin=46,
+    valmax=216,
     valinit=insumos_init,
     valstep=0.01,
     color='sandybrown'
@@ -66,7 +67,7 @@ def update(val):
 
     if slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta
-        desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, 139, slider_insumos.val))
+        desloc_oferta_reta.set_ydata(desloc_oferta(quantidade_desloc, 139, slider_insumos.val))
 
     # Atualiza o ponto na reta de deslocação da oferta
     ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
@@ -100,7 +101,7 @@ def reset(event):
     slider_insumos.reset()
     
     desloc_oferta_init = 0
-    desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, preco_init, insumos_init))
+    desloc_oferta_reta.set_ydata(desloc_oferta(quantidade_desloc, preco_init, insumos_init))
     
     ponto1.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
     ponto2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])

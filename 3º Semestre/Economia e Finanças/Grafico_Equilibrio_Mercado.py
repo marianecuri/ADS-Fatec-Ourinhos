@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, Button
+from matplotlib.widgets import Slider, Button, CheckButtons
 
 # Define os parâmetros iniciais
 preco_init = 139
@@ -199,15 +199,73 @@ stem_horizontal1, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, '--', color='
 stem_horizontal2, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, '--', color='grey')
 
 # Plotagem dos pontos de equilíbrio e dos pontos nas retas de oferta/demanda e de deslocação da oferta/demanda
-ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=6)
-ponto_demanda2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=6)
+ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=5)
+ponto_demanda2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=5)
 
-ponto_oferta1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=6)
-ponto_demanda1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=6)
+ponto_oferta1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=5)
+ponto_demanda1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=5)
 
 equilibrio_x, equilibrio_y = encontrar_equilibrio()
 ponto_equilibrio2, = ax.plot([equilibrio_x], [equilibrio_y], 'ro', markersize=8)
 ponto_equilibrio1, = ax.plot([equilibrio_x], [equilibrio_y], 'ro', markersize=8)
+
+# Cria um checkbox para controlar a visibilidade dos pontos de desequilíbrio
+ax_check_desequilibrio = plt.axes([0.1, 0.925, 0.1, 0.05], frameon=False)
+check_desequilibrio = CheckButtons(ax_check_desequilibrio, ['Mostrar/ocultar Pontos de Desequilíbrio'], [True])
+check_desequilibrio.labels[0].set_fontsize(10)
+check_desequilibrio.labels[0].set_bbox(None)
+
+# Função para atualizar a visibilidade dos pontos de desequilíbrio
+def update_visibility_desequilibrio(label):
+    if check_desequilibrio.get_status()[0]:
+        ponto_oferta1.set_visible(True)
+        ponto_oferta2.set_visible(True)
+        ponto_demanda1.set_visible(True)
+        ponto_demanda2.set_visible(True)
+    else:
+        ponto_oferta1.set_visible(False)
+        ponto_oferta2.set_visible(False)
+        ponto_demanda1.set_visible(False)
+        ponto_demanda2.set_visible(False)
+    fig.canvas.draw_idle()
+
+check_desequilibrio.on_clicked(update_visibility_desequilibrio)
+
+# Cria um checkbox para controlar a visibilidade do stem_vertical1 e do stem_horizontal1
+ax_check_vertical_horizontal = plt.axes([0.1, 0.9, 0.1, 0.05], frameon=False)
+check_vertical_horizontal = CheckButtons(ax_check_vertical_horizontal, ['Mostrar/ocultar linha auxiliar - Equilíbrio'], [True])
+check_vertical_horizontal.labels[0].set_fontsize(10)
+check_vertical_horizontal.labels[0].set_bbox(None)
+
+# Função para atualizar a visibilidade do stem_vertical1 e do stem_horizontal1
+def update_visibility_vertical_horizontal(label):
+    if check_vertical_horizontal.get_status()[0]:
+        stem_vertical1.set_visible(True)
+        stem_horizontal1.set_visible(True)
+    else:
+        stem_vertical1.set_visible(False)
+        stem_horizontal1.set_visible(False)
+    fig.canvas.draw_idle()
+
+check_vertical_horizontal.on_clicked(update_visibility_vertical_horizontal)
+
+# Cria um checkbox para controlar a visibilidade do stem_vertical2 e do stem_horizontal2
+ax_check_vertical_horizontal2 = plt.axes([0.1, 0.875, 0.1, 0.05], frameon=False)
+check_vertical_horizontal2 = CheckButtons(ax_check_vertical_horizontal2, ['Mostrar/ocultar linha auxiliar - Deslocação do Equilíbrio'], [True])
+check_vertical_horizontal2.labels[0].set_fontsize(10)
+check_vertical_horizontal2.labels[0].set_bbox(None)
+
+# Função para atualizar a visibilidade do stem_vertical2 e do stem_horizontal2
+def update_visibility_vertical_horizontal2(label):
+    if check_vertical_horizontal2.get_status()[0]:
+        stem_vertical2.set_visible(True)
+        stem_horizontal2.set_visible(True)
+    else:
+        stem_vertical2.set_visible(False)
+        stem_horizontal2.set_visible(False)
+    fig.canvas.draw_idle()
+
+check_vertical_horizontal2.on_clicked(update_visibility_vertical_horizontal2)
 
 # Cria uma legenda para identificar as linhas/retas
 ax.legend((oferta_reta, demanda_reta, desloc_oferta_reta, desloc_demanda_reta, ponto_oferta2, ponto_demanda2, ponto_equilibrio2), ('Oferta', 'Demanda', 'Deslocação da Oferta', 'Deslocação da Demanda', 'Preço x Quantidade Ofertada', 'Preço x Quantidade Demandada', 'Ponto de Equilíbrio'))
