@@ -27,6 +27,7 @@ ax.set_xticks(np.arange(0, 2500, 250))
 
 # Plotagem da função de deslocação da demanda inicial
 quantidade = np.linspace(100, 1800, 5000)
+preco = np.linspace(15, 315, 5000)
 desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init), color='blue', lw=2)
 
 # Plotagem da função de demanda

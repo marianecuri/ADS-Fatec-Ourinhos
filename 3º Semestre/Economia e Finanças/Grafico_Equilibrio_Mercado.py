@@ -17,6 +17,11 @@ def oferta(quantidade):
 
 # Define a função que calcula a deslocação da oferta
 def desloc_oferta(quantidade, preco, insumos):
+    desloc_val = oferta(quantidade) - (1 * preco) + (1 * insumos)
+    desloc_val = np.where(desloc_val < 16, np.nan, desloc_val)
+    return desloc_val
+    
+def desloc_oferta2(quantidade, preco, insumos):
     return oferta(quantidade) - (1 * preco) + (1 * insumos)
 
 # Define a função de demanda
@@ -25,19 +30,27 @@ def demanda(quantidade):
 
 # Define a função que calcula a deslocação da demanda
 def desloc_demanda(quantidade, preco, renda, outros_produtos, expectativa):
+    desloc_val = demanda(quantidade) - (1 * preco) + (0.005 * renda - 112) + (1 * outros_produtos) + (3 * expectativa - 50)
+    desloc_val = np.where(desloc_val < 16, np.nan, desloc_val)
+    return desloc_val
+    
+def desloc_demanda2(quantidade, preco, renda, outros_produtos, expectativa):
     return demanda(quantidade) - (1 * preco) + (0.005 * renda - 112) + (1 * outros_produtos) + (3 * expectativa - 50)
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
 ax.set_xlabel('Quantidade (Unidades)')
 ax.set_ylabel('Preço (R$)')
-ax.set_xlim([0, 2500])
-ax.set_ylim([0, 250])
-ax.set_xticks(np.arange(0, 2500, 250))
+ax.set_xlim([0, 1800])
+ax.set_ylim([0, 300])
+ax.set_xticks(np.arange(0, 1800, 100))
+ax.set_yticks(np.arange(0, 300, 25))
 
 # Plotagem da função de deslocação da oferta inicial
 quantidade = np.linspace(100, 1800, 5000)
 desloc_oferta_reta, = ax.plot(quantidade, desloc_oferta(quantidade, preco_init, insumos_init), color='orange', lw=2)
+desloc_oferta_ponto, = ax.plot(quantidade, desloc_oferta2(quantidade, preco_init, insumos_init), color='orange', lw=2)
+desloc_oferta_ponto.set_visible(False)
 
 # Plotagem da função de oferta
 oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='black', lw=2)
@@ -48,6 +61,8 @@ desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init
 
 # Plotagem da função de demanda
 demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='black', lw=2)
+desloc_demanda_ponto, = ax.plot(quantidade, desloc_demanda2(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init), color='blue', lw=2)
+desloc_demanda_ponto.set_visible(False)
 
 # Título do gráfico e ajuste do espaço para os sliders
 plt.title('Gráfico de Equilíbrio de Mercado', y=1.05, fontsize=16, weight='bold')
@@ -58,8 +73,8 @@ axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
-    valmin=45,
-    valmax=290,
+    valmin=46,
+    valmax=288,
     valinit=preco_init,
     valstep=0.01,
     color = 'mediumaquamarine'
@@ -82,8 +97,8 @@ axoutros_produtos = fig.add_axes([0.25, 0.15, 0.5, 0.03])
 slider_outros_produtos = Slider(
     ax=axoutros_produtos,
     label='Preço de Produtos Substitutos (R$)',
-    valmin=45,
-    valmax=290,
+    valmin=46,
+    valmax=288,
     valinit=outros_produtos_init,
     valstep=0.01,
     color = 'cornflowerblue'
@@ -106,8 +121,8 @@ axinsumos = fig.add_axes([0.25, 0.05, 0.5, 0.03])
 slider_insumos = Slider(
     ax=axinsumos,
     label='Preço dos Insumos Produtivos (R$)',
-    valmin=15,
-    valmax=290,
+    valmin=16,
+    valmax=288,
     valinit=insumos_init,
     valstep=0.01,
     color = 'sandybrown'
@@ -115,9 +130,9 @@ slider_insumos = Slider(
 
 # Função que encontra o ponto de equilíbrio entre as retas de oferta e demanda
 def encontrar_equilibrio():
-    quantidade = np.linspace(0, 2500, 5000)
-    desloc_oferta_val = desloc_oferta(quantidade, 139, slider_insumos.val)
-    desloc_demanda_val = desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val)
+    quantidade = np.linspace(100, 1800, 5000)
+    desloc_oferta_val = desloc_oferta2(quantidade, 139, slider_insumos.val)
+    desloc_demanda_val = desloc_demanda2(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val)
     equilibrio_index = np.argmin(np.abs(desloc_oferta_val - desloc_demanda_val))
     return quantidade[equilibrio_index], desloc_oferta_val[equilibrio_index]
 equilibrio_x, equilibrio_y = encontrar_equilibrio()
@@ -133,13 +148,18 @@ def update(val):
     if slider_renda.val != slider_renda.valinit or slider_outros_produtos.val != slider_outros_produtos.valinit or slider_expectativa.val != slider_expectativa.valinit or slider_insumos.val != slider_insumos.valinit:
         # Atualiza a função de deslocação da oferta e demanda
         desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, 139, slider_insumos.val))
+        desloc_oferta_ponto.set_ydata(desloc_oferta2(quantidade, 139, slider_insumos.val))
 
         desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
+        desloc_demanda_ponto.set_ydata(desloc_demanda2(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
 	
     # Atualiza o ponto na reta de deslocação da oferta e demanda
-    ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_ponto.get_xdata()[np.abs(desloc_oferta_ponto.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
 
-    ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    # Ajusta a visibilidade do ponto_oferta2
+    ponto_oferta2.set_visible(ponto_oferta2.get_ydata()[0] >= 16)
+
+    ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
     
     # Atualiza o ponto de equilíbrio
     equilibrio_x, equilibrio_y = encontrar_equilibrio()
@@ -175,14 +195,16 @@ def reset(event):
 
     desloc_oferta_init = 0
     desloc_oferta_reta.set_ydata(desloc_oferta(quantidade, preco_init, insumos_init))
+    desloc_oferta_ponto.set_ydata(desloc_oferta2(quantidade, preco_init, insumos_init))
     desloc_demanda_init = 0
     desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init))
+    desloc_demanda_ponto.set_ydata(desloc_demanda2(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init))
 
     ponto_oferta1.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
-    ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    ponto_oferta2.set_data([desloc_oferta_init + desloc_oferta_ponto.get_xdata()[np.abs(desloc_oferta_ponto.get_ydata() - preco_init).argmin()]], [preco_init])
 
     ponto_demanda1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
-    ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    ponto_demanda2.set_data([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - preco_init).argmin()]], [preco_init])
     
     stem_vertical2.set_xdata([equilibrio_x] * 2)
     stem_vertical2.set_ydata([0, equilibrio_y])
@@ -199,8 +221,8 @@ stem_horizontal1, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, '--', color='
 stem_horizontal2, = ax.plot([0, equilibrio_x], [equilibrio_y] * 2, '--', color='grey')
 
 # Plotagem dos pontos de equilíbrio e dos pontos nas retas de oferta/demanda e de deslocação da oferta/demanda
-ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=5)
-ponto_demanda2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=5)
+ponto_oferta2, = ax.plot([desloc_oferta_init + desloc_oferta_ponto.get_xdata()[np.abs(desloc_oferta_ponto.get_ydata() - preco_init).argmin()]], [preco_init], 'yo', markersize=5)
+ponto_demanda2, = ax.plot([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=5)
 
 ponto_oferta1, = ax.plot([desloc_oferta_init + desloc_oferta_reta.get_xdata()[np.abs(desloc_oferta_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=5)
 ponto_demanda1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=5)

@@ -1,18 +1,22 @@
 import subprocess
+import os
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 
+# Pegar o caminho do diretorio atual
+diretorio = os.getcwd()
+
 # Função para executar o programa de oferta
 def botao_oferta(event):
-    subprocess.run(['python', 'c:/Users/Mariane Martins Curi/GitHub/ADS-Fatec-Ourinhos/3º Semestre/Economia e Finanças/Grafico_Oferta.py'])
+    subprocess.run(['python', f'{diretorio}\Grafico_Oferta.py'])
 
 # Função para executar o programa de demanda
 def botao_demanda(event):
-    subprocess.run(['python', 'c:/Users/Mariane Martins Curi/GitHub/ADS-Fatec-Ourinhos/3º Semestre/Economia e Finanças/Grafico_Demanda.py'])
+    subprocess.run(['python', f'{diretorio}/Grafico_Demanda.py'])
 
 # Função para executar o programa de equilíbrio de mercado
 def botao_mercado(event):
-    subprocess.run(['python', 'c:/Users/Mariane Martins Curi/GitHub/ADS-Fatec-Ourinhos/3º Semestre/Economia e Finanças/Grafico_Equilibrio_Mercado.py'])
+    subprocess.run(['python', f'{diretorio}/Grafico_Equilibrio_Mercado.py'])
 
 # Criando e dando função ao botão de oferta
 axBtn1 = plt.axes([0.25, 0.50, 0.5, 0.1])
