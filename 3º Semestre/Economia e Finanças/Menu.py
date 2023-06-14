@@ -8,7 +8,7 @@ diretorio = os.getcwd()
 
 # Função para executar o programa de oferta
 def botao_oferta(event):
-    subprocess.run(['python', f'{diretorio}\Grafico_Oferta.py'])
+    subprocess.run(['python', f'{diretorio}/Grafico_Oferta.py'])
 
 # Função para executar o programa de demanda
 def botao_demanda(event):
