@@ -15,20 +15,28 @@ def demanda(quantidade):
 
 # Define a função que calcula a deslocação da demanda
 def desloc_demanda(quantidade, preco, renda, outros_produtos, expectativa):
+    desloc_val = demanda(quantidade) - (1 * preco) + (0.005 * renda - 112) + (1 * outros_produtos) + (3 * expectativa - 50)
+    desloc_val = np.where(desloc_val < 16, np.nan, desloc_val)
+    return desloc_val
+    
+def desloc_demanda2(quantidade, preco, renda, outros_produtos, expectativa):
     return demanda(quantidade) - (1 * preco) + (0.005 * renda - 112) + (1 * outros_produtos) + (3 * expectativa - 50)
 
 # Cria a figura e a linha/reta a ser manipulada
 fig, ax = plt.subplots()
 ax.set_xlabel('Quantidade (Unidades)')
 ax.set_ylabel('Preço (R$)')
-ax.set_xlim([0, 2500])
-ax.set_ylim([0, 250])
-ax.set_xticks(np.arange(0, 2500, 250))
+ax.set_xlim([0, 1800])
+ax.set_ylim([0, 300])
+ax.set_xticks(np.arange(0, 1800, 100))
+ax.set_yticks(np.arange(0, 300, 25))
 
 # Plotagem da função de deslocação da demanda inicial
 quantidade = np.linspace(100, 1800, 5000)
 preco = np.linspace(15, 315, 5000)
 desloc_demanda_reta, = ax.plot(quantidade, desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init), color='blue', lw=2)
+desloc_demanda_ponto, = ax.plot(quantidade, desloc_demanda2(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init), color='blue', lw=2)
+desloc_demanda_ponto.set_visible(False)
 
 # Plotagem da função de demanda
 demanda_reta, = ax.plot(quantidade, demanda(quantidade), color='black', lw=2)
@@ -42,8 +50,8 @@ axpreco = fig.add_axes([0.25, 0.25, 0.5, 0.03])
 slider_preco = Slider(
     ax=axpreco,
     label='Preço do Produto (R$)',
-    valmin=15,
-    valmax=290,
+    valmin=16,
+    valmax=288,
     valinit=preco_init,
     valstep=0.01,
     color = 'cornflowerblue'
@@ -66,8 +74,8 @@ axoutros_produtos = fig.add_axes([0.25, 0.15, 0.5, 0.03])
 slider_outros_produtos = Slider(
     ax=axoutros_produtos,
     label='Preço de Produtos Substitutos (R$)',
-    valmin=15,
-    valmax=290,
+    valmin=16,
+    valmax=260,
     valinit=outros_produtos_init,
     valstep=0.01,
     color = 'cornflowerblue'
@@ -94,9 +102,10 @@ def update(val):
     if slider_renda.val != slider_renda.valinit or slider_outros_produtos.val != slider_outros_produtos.valinit or slider_expectativa.val != slider_expectativa.valinit:
         # Atualiza a função de deslocação da demanda
         desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
+        desloc_demanda_ponto.set_ydata(desloc_demanda2(quantidade, 139, slider_renda.val, slider_outros_produtos.val, slider_expectativa.val))
 	
     # Atualiza o ponto na reta de deslocação da demanda
-    ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
+    ponto2.set_data([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - slider_preco.val).argmin()]], [slider_preco.val])
     
     # Atualiza os stemplots verticais
     stem_vertical1.set_xdata([quantidade[np.abs(demanda(quantidade) - slider_preco.val).argmin()]] * 2)
@@ -132,9 +141,10 @@ def reset(event):
     
     desloc_demanda_init = 0
     desloc_demanda_reta.set_ydata(desloc_demanda(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init))
+    desloc_demanda_ponto.set_ydata(desloc_demanda2(quantidade, preco_init, renda_init, outros_produtos_init, expectativa_init))
     
     ponto1.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
-    ponto2.set_data([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init])
+    ponto2.set_data([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - preco_init).argmin()]], [preco_init])
     
     stem_vertical1.set_xdata([quantidade[np.abs(demanda(quantidade) - preco_init).argmin()]] * 2)
     stem_vertical1.set_ydata([0, preco_init])
@@ -155,7 +165,7 @@ stem_horizontal1, = ax.plot([0, quantidade[np.abs(demanda(quantidade) - preco_in
 stem_horizontal2, = ax.plot([0, desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init] * 2, '--', color='grey')
 
 # Plotagem dos pontos nas retas de demanda e de deslocação da demanda inicial
-ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=7)
+ponto2, = ax.plot([desloc_demanda_init + desloc_demanda_ponto.get_xdata()[np.abs(desloc_demanda_ponto.get_ydata() - preco_init).argmin()]], [preco_init], 'bo', markersize=7)
 ponto1, = ax.plot([desloc_demanda_init + desloc_demanda_reta.get_xdata()[np.abs(desloc_demanda_reta.get_ydata() - preco_init).argmin()]], [preco_init], 'ko', markersize=7)
 
 # Cria um checkbox para controlar a visibilidade do stem_vertical1 e do stem_horizontal1
