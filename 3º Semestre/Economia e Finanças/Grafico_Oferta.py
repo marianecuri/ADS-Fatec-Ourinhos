@@ -24,11 +24,11 @@ ax.set_ylim([0, 250])
 ax.set_xticks(np.arange(0, 2500, 250))
 
 # Plotagem da função de deslocação da oferta inicial
-quantidade_desloc = np.linspace(100, 1800, 5000)
+quantidade_desloc = np.linspace(100, 2730, 5000)
 desloc_oferta_reta, = ax.plot(quantidade_desloc, desloc_oferta(quantidade_desloc, preco_init, insumos_init), color='orange', lw=2)
 
 # Plotagem da função de oferta
-quantidade = np.linspace(100, 1800, 5000)
+quantidade = np.linspace(100, 2730, 5000)
 oferta_reta, = ax.plot(quantidade, oferta(quantidade), color='black', lw=2)
 
 # Título do gráfico e ajuste do espaço para os sliders
