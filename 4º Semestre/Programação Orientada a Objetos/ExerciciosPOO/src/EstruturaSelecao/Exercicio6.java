@@ -71,9 +71,7 @@ public class Exercicio6
         }
 
         DecimalFormat df = new DecimalFormat("#.00");
-        String valorf = df.format(valor);
-
-        JOptionPane.showMessageDialog(null, "Valor a ser pago: R$ " + valorf);
+        JOptionPane.showMessageDialog(null, "Valor a ser pago: R$ " + df.format(valor));
     }
 
 }

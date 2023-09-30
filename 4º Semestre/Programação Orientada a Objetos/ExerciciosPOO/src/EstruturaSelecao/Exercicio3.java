@@ -65,9 +65,7 @@ public class Exercicio3
         }
 
         DecimalFormat df = new DecimalFormat("#.00");
-        String total_finalf = df.format(total_final);
-
-        JOptionPane.showMessageDialog(null, "O valor total a ser pago é: R$ " + total_finalf);
+        JOptionPane.showMessageDialog(null, "O valor total a ser pago é: R$ " + df.format(total_final));
     }
 
 }

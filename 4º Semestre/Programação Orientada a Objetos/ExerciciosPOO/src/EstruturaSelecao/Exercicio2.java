@@ -35,9 +35,7 @@ public class Exercicio2
         }
 
         DecimalFormat df = new DecimalFormat("#.00");
-        String custo_totalf = df.format(custo_total);
-
-        JOptionPane.showMessageDialog(null, "Custo total da compra: R$ " + custo_totalf);
+        JOptionPane.showMessageDialog(null, "Custo total da compra: R$ " + df.format(custo_total));
     }
 
 }

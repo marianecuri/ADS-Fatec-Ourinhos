@@ -20,9 +20,7 @@ public class Exercicio3
         custo_final = custo_fabrica + (custo_fabrica * 0.28) + (custo_fabrica * 0.45);
 
         DecimalFormat df = new DecimalFormat("#.00");
-        String custo_finalf = df.format(custo_final);
-
-        JOptionPane.showMessageDialog(null, "Custo final do carro: R$ " + custo_finalf);
+        JOptionPane.showMessageDialog(null, "Custo final do carro: R$ " + df.format(custo_final));
     }
 
 }

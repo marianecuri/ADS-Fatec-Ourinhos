@@ -29,10 +29,7 @@ public class Exercicio4
         media = media / 15;
         
         DecimalFormat df = new DecimalFormat("#.00");
-        String maiorf = df.format(maior);
-        String mediaf = df.format(media);
-        
-        JOptionPane.showMessageDialog(null, "Maior preço: R$ " + maiorf + "\nMédia dos preços dos produtos: R$ " + mediaf);
+        JOptionPane.showMessageDialog(null, "Maior preço: R$ " + df.format(maior) + "\nMédia dos preços dos produtos: R$ " + df.format(media));
     }
 
 }
