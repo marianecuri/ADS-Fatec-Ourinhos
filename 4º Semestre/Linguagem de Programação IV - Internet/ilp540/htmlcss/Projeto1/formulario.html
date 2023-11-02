@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulário</title>
+        <link rel="stylesheet" type="text/css" href="./estilos.css">
+    </head>
+
+    <body>
+        <iframe class="menuIframe" src="menu.html" style="height: 40px;"></iframe>
+
+        <div class="cabecalho">
+            <br><br><br>
+            <titulos>Formulário</titulos>
+            <hr>
+            <p style="line-height: 0.5;">&nbsp;</p>
+        </div>
+
+        <div class="formulario">
+            <form action="./tratador.php" method="post">
+                <input type="hidden" name="bloco" value="1">
+                <table>
+                    <tr>
+                        <td><b>Email</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="email" name="email" placeholder="waguilson.arruda@fatec.sp.gov.br">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Senha</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="password" name="senha" placeholder="••••••••••">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Nome completo</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="text" name="nome" size="60" maxlength="150" placeholder="Waguilson Arruda">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>CPF</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="number" name="cpf" placeholder="12345678910">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Professor</b><span><b>:</b></span></td>      
+                        <td>
+                            <select name="disciplina">
+                                <option value="1">Artes</option>
+                                <option value="2">Biologia</option>
+                                <option value="3">Ciências</option>
+                                <option value="4">Educação Física</option>
+                                <option value="5">Filosofia</option>
+                                <option value="6">Física</option>
+                                <option value="7">Geografia</option>
+                                <option value="8">História</option>
+                                <option value="9">Inglês</option>
+                                <option value="10">Língua Portuguesa</option>
+                                <option value="11" selected>Matemática</option>
+                                <option value="11">Química</option>
+                                <option value="13">Sociologia</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Escola de Graduação</b><span><b>:</b></span></td>
+                        <td>
+                            <select name="faculdade">
+                                <option value="1">Estácio</option>
+                                <option value="2" selected>FATEC</option>
+                                <option value="3">IFPR</option>
+                                <option value="4">UENP</option>
+                                <option value="5">Unesp</option>
+                                <option value="6">Unifio</option>
+                                <option value="7">Unimar</option>
+                                <option value="8">UNIP</option>
+                                <option value="9">Univesp</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Cidade Nascimento</b><span><b>:</b></span></td>
+                        <td>
+                            <select name="cidade">
+                                <option value="1">Alvinlândia</option>
+                                <option value="2" selected>Assis</option>
+                                <option value="3">Bernardino de Campos</option>
+                                <option value="4">Campos Novos Paulista</option>
+                                <option value="5">Cândido Mota</option>
+                                <option value="6">Canitar</option>
+                                <option value="7">Chavantes</option>
+                                <option value="8">Espírito Santo do Turvo</option>
+                                <option value="9">Fartura</option>
+                                <option value="10">Ibirarema</option>
+                                <option value="11">Ipaussu</option>
+                                <option value="12">Lupércio</option>
+                                <option value="13">Manduri</option>
+                                <option value="14">Ocauçu</option>
+                                <option value="15">Óleo</option>
+                                <option value="16">Ourinhos</option>
+                                <option value="17">Palmital</option>
+                                <option value="18">Piraju</option>
+                                <option value="19">Platina</option>
+                                <option value="20">Ribeirão do Sul</option>
+                                <option value="21">Salto Grande</option>
+                                <option value="22">Santa Cruz do Rio Pardo</option>
+                                <option value="23">São Pedro do Turvo</option>
+                                <option value="24">Sarutaiá</option>
+                                <option value="25">Taguaí</option>
+                                <option value="26">Tejupá</option>
+                                <option value="27">Timburi</option>
+                                <option value="28">Ubirajara</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Logradouro</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="text" name="logradouro" size="60" maxlength="150" placeholder="Rua Tal, Nr 00">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Bairro</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="text" name="bairro" size="60" maxlength="150" placeholder="Vila Tal">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>CEP</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="number" name="cep" placeholder="86400000">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Número de Telefone</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="tel" name="telefone" placeholder="Escreva somente números">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Data de Nascimento</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="date" name="dataNascimento">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Data de Cadastro do Professor</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="date" name="dataCadastro">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Resenha Profissional</b><span><b>:</b></span></td>
+                        <td>
+                            <textarea name="resenha"></textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Site</b><span><b>:</b></span></td>      
+                        <td>
+                            <input type="url" name="site" placeholder="https://waguilson.fatecourinhos.edu.br/">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Atualmente, está trabalhando na área?&nbsp;</b><span><b>:</b></span></td>      
+                        <td>
+                            <input type="radio" name="atuacao" value="1">Sim
+                            <input type="radio" name="atuacao" value="2">Não
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Trabalha em que período?</b><span><b>:</b></span></td>      
+                        <td>
+                            <input type="checkbox" name="periodo[]" value="1">Manhã
+                            <input type="checkbox" name="periodo[]" value="2">Tarde
+                            <input type="checkbox" name="periodo[]" value="3">Noite
+                            &nbsp;&nbsp;| Deixe em branco caso não esteja trabalhando no momento.
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><b>Intervalo Numérico</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="range" name="intervalo" min="0" max="10">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Cor</b><span><b>:</b></span></td>
+                        <td>
+                            <input type="color" name="cor">
+                        </td>
+                    </tr>
+
+                    <tr>     
+                        <td>
+                            <span style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <button id="limpar" type="reset" name="limpar" style="border:none; background:none; float: left; height: 20px;">Limpar</button>
+                            <span style="float: right;"><b>:</b></span>
+                        </td>
+                        <td>
+                            <button type="submit" name="enviar" value="sub" style="border:none; background:none; height: 20px;">Enviar</button>
+                        </td>                
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

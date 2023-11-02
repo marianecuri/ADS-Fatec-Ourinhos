@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Tarefa 5 - Formulário</title>
+        <link rel='stylesheet' type='text/css' href='./tarefa5.css'>
+    </head>
+
+    <body>
+        <div class='menu'>
+            <table width='85%' style='border:0px'>
+                <tr>
+                    <td><menus>Menu:</menus></td>
+                    <td><a href='./tarefa5.html'><acessos>Apresentação</acessos></a></td>
+                    <td><a href='./identifica.html'><acessos>Identificação Pessoal</acessos></a></td>
+                    <td><a href='./habilcarac.html'><acessos>Habilidades & Características</acessos></a></td>
+                    <td><a href='./defeitomania.html'><acessos>Defeitos & Manias</acessos></a></td>
+                    <td><a href='./hobbies.html'><acessos>Seus Hábitos de Lazer</acessos></a></td>
+                    <td><a href='./futuro.html'><acessos>Futuro</acessos></a></td>
+                    <td><a href='./ancoras.html'><acessos>Âncoras</acessos></a></td>
+                    <td><a href='./forms.html'><acessos>Formulario</acessos></a></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class='cabecalho'>
+            <titulos>Tarefa 5 - Formulário</titulos>
+            <hr color='red' width='85%' size='1' align='left'>
+        </div>
+
+        <div class='formulario'>
+            Primeiro Formulário
+            <form action='./tratador.php' method='post'>
+
+                <input type='hidden' name='bloco' value='1'>
+                <table style='border: 1px solid black;'>
+                    <tr style='border: 1px solid black;'>
+                        <td>Nome:</td>
+                        <td><input type='text' name='nome' size='60' maxlength='150'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Resenha:</td>
+                        <td><textarea  name='resenha' size='60'>Resesenha das atividades</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td>Tipo Sanguíneo:</td>      
+                        <td>
+                            (<input type='radio' name='tiposanguineo' value='1'>)-A |
+                            (<input type='radio' name='tiposanguineo' value='2'>)-B |
+                            (<input type='radio' name='tiposanguineo' value='3'>)-AB |
+                            (<input type='radio' name='tiposanguineo' value='4'>)-O
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Profissão:</td>      
+                        <td>
+                            <select name='profissao'>
+                                <option value='1'> Administrador(a) </option>
+                                <option value='2'> Agropecuarista </option>
+                                <option value='3'> Contador(a) </option>
+                                <option value='4'> Designer </option>
+                                <option value='5'> Engenheiro(a) Civil </option>
+                                <option value='6'> Estagiário(a) </option>
+                                <option value='7'> Estudante </option>
+                                <option value='8'> Professor(a) </option>
+                                <option value='9'> Programador(a) </option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr><td>Hobbies:</td>      
+                        <td>
+                            <input type='checkbox' name='hobby[]' value='1'>-Ler |
+                            <input type='checkbox' name='hobby[]' value='2'>-Cantar |
+                            <input type='checkbox' name='hobby[]' value='3'>-Andar |
+                            <input type='checkbox' name='hobby[]' value='4'>-Ver Filmes e Séries
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Acidentes Sofridos:</td>      
+                        <td>
+                            <select name='acidentes[]' multiple>
+                                <option value='1'> Atropelamento </option>
+                                <option value='2'> Fratura </option>
+                                <option value='3'> Intoxicação </option>
+                                <option value='4'> Afogamento </option>
+                                <option value='5'> Incêndio </option>
+                                <option value='6'> Cortes e facadas </option>
+                            </select>Crtl+Clique para marcar mais de umm item
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Senha:</td>      
+                        <td><input type='password' name='senha'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Cor:</td>      
+                        <td><input type='color' name='cor'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Data:</td>      
+                        <td><input type='date' name='data'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Data e Hora Local:</td>      
+                        <td><input type='datetime-local' name='datahoralocal'></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Hora:</td>      
+                        <td><input type='time' name='hora'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Semana:</td>      
+                        <td><input type='week' name='semana'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Mês:</td>      
+                        <td><input type='month' name='mes'></td>
+                    </tr>
+
+                    <tr>
+                        <td>E-mail:</td>      
+                        <td><input type='email' name='email'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Número:</td>      
+                        <td><input type='number' name='numero'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Range:</td>      
+                        <td><input type='range' name='range'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Telefone:</td>      
+                        <td><input type='tel' name='telefone'></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>      
+                        <td>
+                            <button type='submit' name='bt' value='sub'>Enviar os dados </button>
+                            <button type='reset'>Limpar o form</button>
+                        </td>
+                    </tr> 
+                </table>
+            </form>
+            <br><button onclick='history.go(-1)'>Voltar</button>
+        </div>
+    </body>
+</html>

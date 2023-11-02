@@ -1,0 +1,11 @@
+/* Estilo para corpo do texto */
+body { background-color: #FFDEAD; }
+
+/* Estilo para acessos (links/hiperlinks) */
+a, acessos { color:blue; font-size:14px; font-family: Tahoma, Helvetica, sans-serif; text-decoration-line:none; }
+
+/* Estilo para títulos */
+titulos { color:red; font-size:16px; font-family: Arial, Helvetica, sans-serif; }
+
+/* Estilo para textos */
+textos { color:black; font-size:12px; font-family: Tahoma, Helvetica, sans-serif; }
